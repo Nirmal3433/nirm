@@ -1,0 +1,33 @@
+function shopco_register_product_cpt() {
+    $labels = array(
+        'name'                  => _x( 'Products', 'Post Type General Name', 'text_domain' ),
+        'singular_name'         => _x( 'Product', 'Post Type Singular Name', 'text_domain' ),
+        'menu_name'             => __( 'Products', 'text_domain' ),
+        'all_items'             => __( 'All Products', 'text_domain' ),
+        'add_new_item'          => __( 'Add New Product', 'text_domain' ),
+        'add_new'               => __( 'Add New', 'text_domain' ),
+    );
+    $args = array(
+        'label'                 => __( 'Product', 'text_domain' ),
+        'description'           => __( 'E-commerce product items', 'text_domain' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'editor', 'thumbnail' ), // Use WP standard fields for title/description/image
+        'taxonomies'            => array( 'category' ), // Re-use the default Category taxonomy for collections/new arrivals grouping
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 5,
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+    );
+    register_post_type( 'product', $args );
+}
+add_action( 'init', 'shopco_register_product_cpt', 0 );
+
+// ACF Custom Fields (Price, Discount) must be added to this 'Product' CPT in the WordPress admin.
